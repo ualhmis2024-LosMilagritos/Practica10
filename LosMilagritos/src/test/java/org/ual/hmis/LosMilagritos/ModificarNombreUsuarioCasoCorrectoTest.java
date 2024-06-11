@@ -99,7 +99,7 @@ public class ModificarNombreUsuarioCasoCorrectoTest {
 		driver.findElement(By.id("input-vaadin-text-field-23")).sendKeys("paula");
 
 		driver.findElement(By.cssSelector("vaadin-button:nth-child(1)")).click();
-		driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(34)")).click();
+		driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(35)")).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-vaadin-text-field-23")));
 
 		driver.findElement(By.id("input-vaadin-text-field-23")).click();

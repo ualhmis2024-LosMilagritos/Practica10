@@ -84,7 +84,7 @@ public class ModificarNumeroTelefonoCasoCorrectoTest {
 		loginButton.click();
 
 		wait.until(ExpectedConditions.elementToBeClickable(By.tagName("vaadin-grid")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("vaadin-grid-cell-content:nth-child(68)"))).click();
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("vaadin-grid-cell-content:nth-child(67)"))).click();
 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-vaadin-text-field-26")));
 		driver.findElement(By.id("input-vaadin-text-field-26")).click();

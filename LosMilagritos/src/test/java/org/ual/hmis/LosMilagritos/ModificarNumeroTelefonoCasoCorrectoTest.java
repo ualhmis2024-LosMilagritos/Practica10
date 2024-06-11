@@ -38,7 +38,7 @@ public class ModificarNumeroTelefonoCasoCorrectoTest {
 
 	switch (browser) {
 	case 0: 
-		System.setProperty("webdriver.gecko.driver",  "drivers/geckodriver.exe");
+//		System.setProperty("webdriver.gecko.driver",  "drivers/geckodriver.exe");
 		FirefoxOptions firefoxOptions = new FirefoxOptions();
 //		if (headless) firefoxOptions.addArguments("--headless"); // .setHeadless(headless);
 		firefoxOptions.setHeadless(true); 

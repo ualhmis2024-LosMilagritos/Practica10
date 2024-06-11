@@ -72,14 +72,10 @@ public class ModificarNumeroTelefonoCasoIncorrectoTest {
 	}
 	@Test
 	public void modificarNumeroTelefonoCasoIncorrecto() {
-		// Test name: Modificar Numero Telefono Caso Incorrecto
-		// Step # | name | target | value
-		// 1 | open | https://my-app-1717583869591.azurewebsites.net/ |
 		driver.get("https://my-app-1717583869591.azurewebsites.net/");
-		// 3 | wait for element | css=vaadin-grid-cell-content |
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 
-		//Entrar como usuario a la app
+		// Entrar como usuario a la app
 		WebElement usernameField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("input-vaadin-text-field-6")));
 		usernameField.sendKeys("user");
 
@@ -90,33 +86,30 @@ public class ModificarNumeroTelefonoCasoIncorrectoTest {
 		loginButton.click();
 
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("vaadin-grid-cell-content")));
-		// 4 | find elements | css=vaadin-grid-cell-content |
-		List<WebElement> elements = driver.findElements(By.cssSelector("vaadin-grid-cell-content"));
-		// 5 | click | css=vaadin-grid-cell-content:nth-child(74) |
-		elements.get(73).click();
-		// 6 | click | css=vaadin-text-field:nth-child(4) |
-		driver.findElement(By.cssSelector("vaadin-text-field:nth-child(4)")).click();
-		// 7 | assertValue | id=input-vaadin-text-field-26 | (882) 813-1374
+
+		driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(76)")).click();
+
+		// Verificar el valor
 		{
-			String value = driver.findElement(By.id("input-vaadin-text-field-26")).getAttribute("value");
-			assertThat(value, is("(882) 813-1374"));
+		    String value = driver.findElement(By.id("input-vaadin-text-field-26")).getAttribute("value");
+		    assertThat(value, is("(882) 813-1374"));
 		}
-		// 8 | click | id=input-vaadin-text-field-26 |
+
+		// Limpiar el campo de texto y escribir un nuevo valor
 		driver.findElement(By.id("input-vaadin-text-field-26")).click();
-		// 9 | click | css=vaadin-split-layout |
-		driver.findElement(By.cssSelector("vaadin-split-layout")).click();
-		// 10 | type | id=input-vaadin-text-field-26 | (882) 813-1567
+		driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys(Keys.DELETE);
 		driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys("(882) 813-1567");
-		// 11 | click | css=vaadin-button:nth-child(2) |
+
 		driver.findElement(By.cssSelector("vaadin-button:nth-child(2)")).click();
-		// 12 | click | css=vaadin-grid-cell-content:nth-child(76) |
-		elements.get(75).click();
-		// 13 | click | css=vaadin-split-layout |
-		driver.findElement(By.cssSelector("vaadin-split-layout")).click();
-		// 14 | assertValue | id=input-vaadin-text-field-26 | (882) 813-1374
+
+		driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(76)")).click();
+
+		// Verificar el valor nuevamente
 		{
-			String value = driver.findElement(By.id("input-vaadin-text-field-26")).getAttribute("value");
-			assertThat(value, is("(882) 813-1374"));
+		    String value = driver.findElement(By.id("input-vaadin-text-field-26")).getAttribute("value");
+		    assertThat(value, is(not("(882) 813-1567")));
+		    assertThat(value, is("(882) 813-1374"));
 		}
 	}
 }

@@ -71,14 +71,9 @@ public class ModificarNumeroTelefonoCasoCorrectoTest {
 	}
 	@Test
 	public void modificarNumeroTelefonoCasoCorrecto() {
-		// Test name: Modificar Numero Telefono Caso Correcto
-		// Step # | name | target | value
-		// 1 | open | https://my-app-1717583869591.azurewebsites.net/ |
 		driver.get("https://my-app-1717583869591.azurewebsites.net/");
-		// 3 | wait for element | css=vaadin-grid-cell-content |
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 
-		//Entrar como usuario a la app
 		WebElement usernameField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("input-vaadin-text-field-6")));
 		usernameField.sendKeys("user");
 
@@ -88,32 +83,40 @@ public class ModificarNumeroTelefonoCasoCorrectoTest {
 		WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("vaadin-button:nth-child(2)")));
 		loginButton.click();
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("vaadin-grid-cell-content")));
-		// 4 | click | css=vaadin-grid-cell-content |
-		driver.findElement(By.cssSelector("vaadin-grid-cell-content")).click();
-		// 5 | click | id=input-vaadin-text-field-26 |
+		wait.until(ExpectedConditions.elementToBeClickable(By.tagName("vaadin-grid")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("vaadin-grid-cell-content:nth-child(68)"))).click();
+
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-vaadin-text-field-26")));
 		driver.findElement(By.id("input-vaadin-text-field-26")).click();
-		// 6 | assertValue | id=input-vaadin-text-field-26 | (600) 616-073
-		{
-			String value = driver.findElement(By.id("input-vaadin-text-field-26")).getAttribute("value");
-			assertThat(value, is("(600) 616-073"));
-		}
-		// 7 | click | id=input-vaadin-text-field-26 |
+
+		String value = driver.findElement(By.id("input-vaadin-text-field-26")).getAttribute("value");
+		assertThat(value, is("(600) 616-073"));
+
 		driver.findElement(By.id("input-vaadin-text-field-26")).click();
-		// 8 | click | id=input-vaadin-text-field-26 |
-		driver.findElement(By.id("input-vaadin-text-field-26")).click();
-		// 9 | type | id=input-vaadin-text-field-26 | (600) 616-7890
+		driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys(Keys.chord(Keys.DELETE));
 		driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys("(600) 616-7890");
-		// 10 | click | id=input-vaadin-text-field-26 |
+
+		driver.findElement(By.cssSelector("vaadin-button:nth-child(1)")).click();
+		driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(68)")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-vaadin-text-field-26")));
+
 		driver.findElement(By.id("input-vaadin-text-field-26")).click();
-		// 11 | assertValue | id=input-vaadin-text-field-26 | (600) 616-7890
-		{
-			String value = driver.findElement(By.id("input-vaadin-text-field-26")).getAttribute("value");
-			assertThat(value, is("(600) 616-7890"));
-		}
-		// 12 | click | css=vaadin-grid-cell-content |
-		driver.findElement(By.cssSelector("vaadin-grid-cell-content")).click();
-		// 13 | click | css=vaadin-split-layout |
-		driver.findElement(By.cssSelector("vaadin-split-layout")).click();
-	}
+		value = driver.findElement(By.id("input-vaadin-text-field-26")).getAttribute("value");
+		assertThat(value, is("(600) 616-7890"));
+
+		driver.findElement(By.id("input-vaadin-text-field-26")).click();
+		driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys(Keys.chord(Keys.DELETE));
+		driver.findElement(By.id("input-vaadin-text-field-26")).sendKeys("(600) 616-073");
+
+		wait.until(ExpectedConditions.attributeToBe(By.id("input-vaadin-text-field-26"), "value", "(600) 616-073"));
+		driver.findElement(By.cssSelector("vaadin-button:nth-child(1)")).click();
+		driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(68)")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("input-vaadin-text-field-26")));
+
+		value = driver.findElement(By.id("input-vaadin-text-field-26")).getAttribute("value");
+		assertThat(value, is("(600) 616-073"));
+
+    }
 }

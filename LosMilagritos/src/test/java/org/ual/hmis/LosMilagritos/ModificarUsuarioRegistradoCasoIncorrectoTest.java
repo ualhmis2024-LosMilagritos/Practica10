@@ -41,21 +41,21 @@ public class ModificarUsuarioRegistradoCasoIncorrectoTest {
 		case 0: 
 			System.setProperty("webdriver.gecko.driver",  "drivers/geckodriver.exe");
 			FirefoxOptions firefoxOptions = new FirefoxOptions();
-//			if (headless) firefoxOptions.addArguments("--headless"); // .setHeadless(headless);
+			//			if (headless) firefoxOptions.addArguments("--headless"); // .setHeadless(headless);
 			firefoxOptions.setHeadless(true); 
 			driver = new FirefoxDriver(firefoxOptions);
 			//HtmlUnit Driver
-//			driver = new HtmlUnitDriver(BrowserVersion.FIREFOX, true);
+			//			driver = new HtmlUnitDriver(BrowserVersion.FIREFOX, true);
 			break;
 
 		case 1: 
 			System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 			ChromeOptions chromeOptions = new ChromeOptions();
-//			if (headless) chromeOptions.addArguments("--headless"); // .setHeadless(headless);
+			//			if (headless) chromeOptions.addArguments("--headless"); // .setHeadless(headless);
 			chromeOptions.setHeadless(true);
 			driver = new ChromeDriver(chromeOptions);
 			//HtmlUnit Driver
-//			driver = new HtmlUnitDriver(BrowserVersion.CHROME, true);
+			//			driver = new HtmlUnitDriver(BrowserVersion.CHROME, true);
 			break;
 
 		default:
@@ -72,14 +72,9 @@ public class ModificarUsuarioRegistradoCasoIncorrectoTest {
 	}
 	@Test
 	public void modificarUsuarioRegistradoCasoIncorrecto() {
-		// Test name: Modificar Usuario Registrado Caso Incorrecto
-		// Step # | name | target | value
-		// 1 | open | https://my-app-1717583869591.azurewebsites.net/ | 
 		driver.get("https://my-app-1717583869591.azurewebsites.net/");
-		// 2 | Wait for vaadin-grid to be clickable
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 
-		//Entrar como usuario a la app
 		WebElement usernameField = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("input-vaadin-text-field-6")));
 		usernameField.sendKeys("user");
 
@@ -89,28 +84,33 @@ public class ModificarUsuarioRegistradoCasoIncorrectoTest {
 		WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("vaadin-button:nth-child(2)")));
 		loginButton.click();
 
-		wait.until(ExpectedConditions.elementToBeClickable(By.tagName("vaadin-grid")));
-		// 3 | click | css=vaadin-grid-cell-content:nth-child(41) | 
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("vaadin-grid-cell-content")));
+
+
 		driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(41)")).click();
-		// 4 | assertText | css=vaadin-grid-cell-content:nth-child(41) | Barry
-		assertThat(driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(41)")).getText(), is("Barry"));
-		// 5 | click | id=input-vaadin-text-field-23 | 
+
+		// Verificar el valor
+		{
+			String value = driver.findElement(By.id("input-vaadin-text-field-23")).getAttribute("value");
+			assertThat(value, is("Barry"));
+		}
+
+		// Limpiar el campo de texto y escribir un nuevo valor
 		driver.findElement(By.id("input-vaadin-text-field-23")).click();
-		// 6 | sendKeys | id=input-vaadin-text-field-23 | Juan
-		wait.until(ExpectedConditions.elementToBeClickable(By.id("input-vaadin-text-field-23"))).sendKeys("Juan");
-		// 7 | click | css=vaadin-button:nth-child(1) | 
-		driver.findElement(By.cssSelector("vaadin-button:nth-child(1)")).click();
-		// 8 | Wait for vaadin-grid-cell-content:nth-child(41) to be clickable
-		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("vaadin-grid-cell-content:nth-child(41)")));
-		// 9 | click | css=vaadin-grid-cell-content:nth-child(41) | 
+		driver.findElement(By.id("input-vaadin-text-field-23")).sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		driver.findElement(By.id("input-vaadin-text-field-23")).sendKeys(Keys.DELETE);
+		driver.findElement(By.id("input-vaadin-text-field-23")).sendKeys("Juan");
+
+		driver.findElement(By.cssSelector("vaadin-button:nth-child(2)")).click();
+
+		// Click en otro elemento específico
 		driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(41)")).click();
-		// 10 | assertNotText | css=vaadin-grid-cell-content:nth-child(41) | Juan
-		assertThat(driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(41)")).getText(), is(not("Juan")));
-		// 11 | click | css=vaadin-button:nth-child(1) | 
-		driver.findElement(By.cssSelector("vaadin-button:nth-child(1)")).click();
-		// 12 | sendKeys | css=vaadin-grid-cell-content:nth-child(41) | Barry
-		driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(41)")).sendKeys("Barry");
-		// 13 | assertText | css=vaadin-grid-cell-content:nth-child(41) | Barry
-		assertThat(driver.findElement(By.cssSelector("vaadin-grid-cell-content:nth-child(41)")).getText(), is("Barry"));
+
+		// Verificar el valor nuevamente
+		{
+			String value = driver.findElement(By.id("input-vaadin-text-field-23")).getAttribute("value");
+			assertThat(value, is(not("Juan")));
+			assertThat(value, is("Barry"));
+		}
 	}
 }

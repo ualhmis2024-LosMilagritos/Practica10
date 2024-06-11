@@ -26,14 +26,16 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+
 
 public class CreaciondeUsuariosCasoCorrectoTest {
 	private WebDriver driver;
 	private Map<String, Object> vars;
 	JavascriptExecutor js;
 	@Before
-	public void setUp() {
+	public void setUp()  throws Exception{
 		int browser= 0; 
 		Boolean headless = false;
 
@@ -44,6 +46,8 @@ public class CreaciondeUsuariosCasoCorrectoTest {
 //			if (headless) firefoxOptions.addArguments("--headless"); // .setHeadless(headless);
 			firefoxOptions.setHeadless(true); 
 			driver = new FirefoxDriver(firefoxOptions);
+			//HtmlUnit Driver
+//			driver = new HtmlUnitDriver(BrowserVersion.FIREFOX, true);
 			break;
 
 		case 1: 
@@ -52,6 +56,8 @@ public class CreaciondeUsuariosCasoCorrectoTest {
 //			if (headless) chromeOptions.addArguments("--headless"); // .setHeadless(headless);
 			chromeOptions.setHeadless(true);
 			driver = new ChromeDriver(chromeOptions);
+			//HtmlUnit Driver
+//			driver = new HtmlUnitDriver(BrowserVersion.CHROME, true);
 			break;
 
 		default:
